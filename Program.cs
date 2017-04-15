@@ -6,65 +6,55 @@ namespace Bridge
     {
         private static void Main()
         {
-            Abstraction abstraction = new RefinedAbstraction(new ConcreteImplementorA());
+            Abstraction abstraction = new Abstraction(new ConcreteImplementorA());
             abstraction.Operation();
-            abstraction = new RefinedAbstraction(new ConcreteImplementorB());
-           abstraction.Operation();
+            abstraction = new Abstraction(new ConcreteImplementorB());
+            abstraction.Operation();
             Console.ReadLine();
         }
-    }
 
-    internal interface IAbstraction
-    {
-         void Operation();
-    }
 
-    internal class Abstraction : IAbstraction
-    {
-
-        protected Implementor Implementor;
-
-        protected Abstraction(Implementor imp)
+        internal interface IAbstraction
         {
-            Implementor = imp;
+            void Operation();
         }
 
-        public virtual void Operation()
+        internal class Abstraction : IAbstraction
         {
-            Implementor.OperationImp();
+
+            protected IMplementor Implementor;
+
+            public Abstraction(IMplementor imp)
+            {
+                Implementor = imp;
+            }
+
+            public void Operation()
+            {
+                Implementor.OperationImp();
+            }
         }
-    }
 
-    internal interface Implementor
-    {
-        void OperationImp();
-    }
-
-    internal class RefinedAbstraction : Abstraction
-    {
-        public RefinedAbstraction(Implementor imp) : base(imp)
+        internal interface IMplementor
         {
+            void OperationImp();
         }
 
-        /*public override void Operation()
-        {
-            base.Operation();
-        }*/
-    }
 
-    internal class ConcreteImplementorA : Implementor
-    {
-        public  void OperationImp()
+        internal class ConcreteImplementorA : IMplementor
         {
-            Console.WriteLine("ImplementorA");
+            public void OperationImp()
+            {
+                Console.WriteLine("ImplementorA");
+            }
         }
-    }
 
-    internal class ConcreteImplementorB : Implementor
-    {
-        public void OperationImp()
+        internal class ConcreteImplementorB : IMplementor
         {
-            Console.WriteLine("ImplementorB");
+            public void OperationImp()
+            {
+                Console.WriteLine("ImplementorB");
+            }
         }
     }
 }
